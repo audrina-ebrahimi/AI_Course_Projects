@@ -30,6 +30,7 @@ MAX_STEP = 99
 
 convergenceTrack = [0]
 
+
 def epsilon_greedy_policy(q_table, observation):
     if np.random.uniform(0, 1) < EPSILON:
         action = env.action_space.sample()
@@ -41,7 +42,6 @@ def epsilon_greedy_policy(q_table, observation):
 def Q_Learning_Algorithm(observation, q_table):
     # train the agent for max_iter_number number of episodes
     for i in tqdm(range(0, max_iter_number)):
-
         # reset the environment
         observation, info = env.reset()
         terminated, truncated = False, False
@@ -53,7 +53,7 @@ def Q_Learning_Algorithm(observation, q_table):
 
             next_observation, reward, terminated, truncated, info = env.step(action)
 
-            # if the agent reaches the goal, then reward = 1, else if it falls to a hole, reward = -1  
+            # if the agent reaches the goal, then reward = 1, else if it falls to a hole, reward = -1
             if (reward == 0) and terminated:
                 reward = -1
             elif (reward == 1) and terminated:
@@ -61,15 +61,22 @@ def Q_Learning_Algorithm(observation, q_table):
             else:
                 # Calculate the distance to the goal for agent and reward it based on the distance
                 x, y = next_observation // map_size, next_observation % map_size
-                dist_to_goal = np.sqrt(np.power(x - (map_size - 1), 2) + np.power(y - (map_size - 1), 2))
+                dist_to_goal = np.sqrt(
+                    np.power(x - (map_size - 1), 2) + np.power(y - (map_size - 1), 2)
+                )
                 reward = -0.1 / (1 + np.exp(-dist_to_goal))
 
             # choose the next action
             next_action = np.argmax(q_table[next_observation])
 
             # update the q_table
-            q_table[observation][action] = q_table[observation][action] + LEARNING_RATE *\
-                (reward + DISCOUNT_FACTOR * q_table[next_observation][next_action] - q_table[observation][action])
+            q_table[observation][action] = q_table[observation][
+                action
+            ] + LEARNING_RATE * (
+                reward
+                + DISCOUNT_FACTOR * q_table[next_observation][next_action]
+                - q_table[observation][action]
+            )
 
             # update the observation
             observation = next_observation
@@ -85,7 +92,8 @@ def Q_Learning_Algorithm(observation, q_table):
         #     return
     print("Training Completed")
     sleep(2)
-    
+
+
 def plot_convergence(convergence):
     plt.plot(convergence)
     plt.xlabel("Number of Episodes")
@@ -106,33 +114,31 @@ def save_q_table(q_table):
                 if (reward == 0) and isTerminalState:
                     terminal_states.add(nextState)
 
-    with open('q_table_frozen.txt', 'w', encoding="utf-8") as inp:
+    with open("q_table_frozen.txt", "w", encoding="utf-8") as inp:
         for state in range(map_size**2):
             if state in terminal_states:
-                inp.write(u'☠\t')
+                inp.write("☠\t")
             elif state == goal_state:
-                inp.write(u'🪙\t')
-            
+                inp.write("🪙\t")
+
             else:
                 if np.all(q_table[state] == 0):
-                    inp.write(u'⬜\t')
+                    inp.write("⬜\t")
                 else:
                     argm = np.argmax(q_table[state])
                     if argm == 0:
-                        inp.write(u'←\t')
+                        inp.write("←\t")
                     elif argm == 1:
-                        inp.write(u'↓\t')
+                        inp.write("↓\t")
                     elif argm == 2:
-                        inp.write(u'→\t')
+                        inp.write("→\t")
                     elif argm == 3:
-                        inp.write(u'↑\t')
+                        inp.write("↑\t")
             if (state + 1) % map_size == 0:
-                inp.write('\n')
-
+                inp.write("\n")
 
 
 if __name__ == "__main__":
-
     # train the agent with no graphical output
     Q_Learning_Algorithm(observation, q_table)
 
@@ -141,14 +147,15 @@ if __name__ == "__main__":
     env.close()
 
     # create Enviroment
-    env = gym.make("FrozenLake-v1", desc=map_shape, render_mode="human", is_slippery=False)
+    env = gym.make(
+        "FrozenLake-v1", desc=map_shape, render_mode="human", is_slippery=False
+    )
 
     # reset enviroment
     observation, info = env.reset()
 
     # test the agent for max_iter_number number of episodes
     for i in range(1):
-
         terminated, truncated = False, False
 
         for _ in range(MAX_STEP):
@@ -165,7 +172,6 @@ if __name__ == "__main__":
                 break
 
             observation = next_observation
-            
 
     env.close()
     plot_convergence(convergenceTrack)

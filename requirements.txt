@@ -1,0 +1,6 @@
+gymnasium
+numpy
+tqdm
+matplotlib
+gym==0.21.0
+pettingzoo[classic]

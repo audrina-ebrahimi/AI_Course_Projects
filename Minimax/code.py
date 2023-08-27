@@ -18,6 +18,7 @@ AI_PLAYER = 0
 HUMAN_PLAYER = 1
 EPSILON = 1
 
+
 # Heuristics for getting scores from game map
 def heuristic(board, agent):
     # Define agent and opponent
@@ -28,7 +29,7 @@ def heuristic(board, agent):
     h = 0
     for r in range(ROW_COUNT):
         if board[r][COLUMN_COUNT // 2] == piece:
-            h += (3 * EPSILON)
+            h += 3 * EPSILON
 
     # Check consecutiveness of piece in rows
     for c in range(COLUMN_COUNT - 3):
@@ -77,7 +78,7 @@ def heuristic(board, agent):
                 and (board[r + 3][c] == piece)
             ):
                 h += 100
-            #Increase score for three consecutive pieces in a vertical line with an empty space at the end
+            # Increase score for three consecutive pieces in a vertical line with an empty space at the end
             elif (
                 (board[r][c] == piece)
                 and (board[r + 1][c] == piece)
@@ -190,7 +191,7 @@ def winning_condition(board, agent):
                 and (board[r][c + 3] == piece)
             ):
                 return True
-            
+
     # Return True if there are four consecutive pieces of the agent in a column
     for c in range(COLUMN_COUNT):
         for r in range(ROW_COUNT - 3):
@@ -276,11 +277,11 @@ def MiniMax(game_map, depth, alpha, beta, player):
         if is_terminal:
             # If the game is over, return the corresponding utility value
             if winning_condition(game_map, AI_PLAYER):
-                return (None, 1000000000000000) # AI wins
+                return (None, 1000000000000000)  # AI wins
             elif winning_condition(game_map, HUMAN_PLAYER):
                 return (None, -1000000000000000)
             else:
-                return (None, 0) # It's a draw
+                return (None, 0)  # It's a draw
         else:
             # If the maximum depth is reached, return the heuristic value of the current node
             return (None, heuristic(game_map, AI_PLAYER))
@@ -303,7 +304,7 @@ def MiniMax(game_map, depth, alpha, beta, player):
 
             # Recursively call the MiniMax function with the new board and the opponent as the current player
             new_score = MiniMax(temp_map, depth - 1, alpha, beta, opponent)[1]
-            
+
             # If the new score is greater than the current value, update the current value and the best move
             if new_score > value:
                 value = new_score
@@ -330,15 +331,15 @@ def MiniMax(game_map, depth, alpha, beta, player):
             # Create a copy of the current board and simulate the move
             temp_map = game_map.copy()
             temp_map[row][column] = HUMAN_PLAYER + 1
-            
+
             # Recursively call the MiniMax function with the new board and the opponent as the current player
             new_score = MiniMax(temp_map, depth - 1, alpha, beta, opponent)[1]
-            
+
             # If the new score is less than the current value, update the current value and the best move
             if new_score < value:
                 value = new_score
                 best_move = column
-            
+
             # Update beta
             beta = min(beta, value)
 
@@ -352,10 +353,8 @@ def MiniMax(game_map, depth, alpha, beta, player):
 
 if __name__ == "__main__":
     try:
-        # Remove existing 'steps_pic' directory and create a new one
-        rmtree('steps_pic')
         mkdir("steps_pic")
-    except FileExistsError:
+    except Exception:
         pass
 
     i = 0
