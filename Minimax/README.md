@@ -1,5 +1,5 @@
 <h1>
-<br>Solving Frozen Lake Environment using MDP
+<br>Connect Four Game using Minimax
 </h1>
 
 ---
