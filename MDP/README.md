@@ -12,11 +12,12 @@ MDPs are a fundamental concept in the field of artificial intelligence and reinf
 
 ## 📂 Project Structure
 
+ * [Persian_Doc.pdf](./Persian_Doc.pdf)
+ * [Problem statement.pdf](./Problem%20Statement.pdf)
  * [README.md](./README.md)
  * [code.py](./code.py)
- * [Persian_Doc.pdf](./Persian_Doc.pdf)
  * [policy.png](./policy.png)
- * [Problem statement.pdf](./Problem%20statement.pdf)
+ 
 
 ---
 
