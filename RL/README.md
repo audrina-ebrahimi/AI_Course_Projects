@@ -22,8 +22,8 @@ This repository contains two projects focused on solving the Frozen Lake problem
    * [Problem statement.pdf](./Taxi/Problem%20Statement.pdf)
    * [Persian_Doc.pdf](./Taxi/Persian_Doc.pdf)
    * [code.py](./Taxi/code.py)
-   * [epsilon_0.9.png](./Frozen_Lake/epsilon_0.9.png)
-   * [epsilon_0.png](./Frozen_Lake/epsilon_0.png)
+   * [epsilon_0.9.png](./Taxi/epsilon_0.9.png)
+   * [epsilon_0.png](./Taxi/epsilon_0.png)
  * [README.md](./README.md)
  
  
