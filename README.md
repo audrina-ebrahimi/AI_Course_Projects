@@ -1,5 +1,5 @@
 <h1>
-<br>AI_Course_Projects
+<br>AI Course Projects
 </h1>
 
 ---
@@ -66,8 +66,6 @@ cd AI_Course_Projects
 ```sh
 pip install -r ./requirements.txt
 ```
-
-### 🎮 Using CIFAR_10_Image_Classification
 
 Now you can run any projects you want.
 
